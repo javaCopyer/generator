@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.alibaba.dao.mapper.TBetRecordBbinMapper">
+  <resultMap id="BaseResultMap" type="com.mh.entity.TBetRecordBbin">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="web_flag" jdbcType="VARCHAR" property="webFlag" />
+    <result column="web_remark" jdbcType="VARCHAR" property="webRemark" />
+    <result column="bet_user_name" jdbcType="VARCHAR" property="betUserName" />
+    <result column="bet_flat_account" jdbcType="VARCHAR" property="betFlatAccount" />
+    <result column="bet_game_content" jdbcType="VARCHAR" property="betGameContent" />
+    <result column="bet_game_result" jdbcType="VARCHAR" property="betGameResult" />
+    <result column="bet_content" jdbcType="VARCHAR" property="betContent" />
+    <result column="bet_game_hall" jdbcType="VARCHAR" property="betGameHall" />
+    <result column="bet_game_room" jdbcType="VARCHAR" property="betGameRoom" />
+    <result column="bet_game_table" jdbcType="VARCHAR" property="betGameTable" />
+    <result column="bet_game_code" jdbcType="VARCHAR" property="betGameCode" />
+    <result column="bet_Wagers_id" jdbcType="VARCHAR" property="betWagersId" />
+    <result column="bet_in" jdbcType="DOUBLE" property="betIn" />
+    <result column="bet_income" jdbcType="DOUBLE" property="betIncome" />
+    <result column="bet_usr_win" jdbcType="DOUBLE" property="betUsrWin" />
+    <result column="bet_net_win" jdbcType="DOUBLE" property="betNetWin" />
+    <result column="bet_time" jdbcType="TIMESTAMP" property="betTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="back_water" jdbcType="VARCHAR" property="backWater" />
+    <result column="back_water_status" jdbcType="INTEGER" property="backWaterStatus" />
+    <result column="back_water_time" jdbcType="TIMESTAMP" property="backWaterTime" />
+    <result column="back_sys_user_name" jdbcType="VARCHAR" property="backSysUserName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="bet_login_ip" jdbcType="VARCHAR" property="betLoginIp" />
+    <result column="bet_user_agent" jdbcType="VARCHAR" property="betUserAgent" />
+    <result column="sync_flag" jdbcType="INTEGER" property="syncFlag" />
+    <result column="bet_settled" jdbcType="TIMESTAMP" property="betSettled" />
+    <result column="bet_device" jdbcType="VARCHAR" property="betDevice" />
+    <result column="is_water" jdbcType="INTEGER" property="isWater" />
+    <result column="bet_game_type" jdbcType="VARCHAR" property="betGameType" />
+    <result column="settle_status" jdbcType="INTEGER" property="settleStatus" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.mh.entity.TBetRecordBbin">
+    <result column="user_node_flag" jdbcType="LONGVARCHAR" property="userNodeFlag" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, web_flag, web_remark, bet_user_name, bet_flat_account, bet_game_content, bet_game_result, 
+    bet_content, bet_game_hall, bet_game_room, bet_game_table, bet_game_code, bet_Wagers_id, 
+    bet_in, bet_income, bet_usr_win, bet_net_win, bet_time, status, back_water, back_water_status, 
+    back_water_time, back_sys_user_name, create_time, modify_time, bet_login_ip, bet_user_agent, 
+    sync_flag, bet_settled, bet_device, is_water, bet_game_type, settle_status
+  </sql>
+  <sql id="Blob_Column_List">
+    user_node_flag
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.mh.entity.TBetRecordBbinExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_bet_record_bbin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.mh.entity.TBetRecordBbinExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_bet_record_bbin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_bet_record_bbin
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_bet_record_bbin
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mh.entity.TBetRecordBbinExample">
+    delete from t_bet_record_bbin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mh.entity.TBetRecordBbin">
+    insert into t_bet_record_bbin (id, web_flag, web_remark, 
+      bet_user_name, bet_flat_account, bet_game_content, 
+      bet_game_result, bet_content, bet_game_hall, 
+      bet_game_room, bet_game_table, bet_game_code, 
+      bet_Wagers_id, bet_in, bet_income, 
+      bet_usr_win, bet_net_win, bet_time, 
+      status, back_water, back_water_status, 
+      back_water_time, back_sys_user_name, create_time, 
+      modify_time, bet_login_ip, bet_user_agent, 
+      sync_flag, bet_settled, bet_device, 
+      is_water, bet_game_type, settle_status, 
+      user_node_flag)
+    values (#{id,jdbcType=INTEGER}, #{webFlag,jdbcType=VARCHAR}, #{webRemark,jdbcType=VARCHAR}, 
+      #{betUserName,jdbcType=VARCHAR}, #{betFlatAccount,jdbcType=VARCHAR}, #{betGameContent,jdbcType=VARCHAR}, 
+      #{betGameResult,jdbcType=VARCHAR}, #{betContent,jdbcType=VARCHAR}, #{betGameHall,jdbcType=VARCHAR}, 
+      #{betGameRoom,jdbcType=VARCHAR}, #{betGameTable,jdbcType=VARCHAR}, #{betGameCode,jdbcType=VARCHAR}, 
+      #{betWagersId,jdbcType=VARCHAR}, #{betIn,jdbcType=DOUBLE}, #{betIncome,jdbcType=DOUBLE}, 
+      #{betUsrWin,jdbcType=DOUBLE}, #{betNetWin,jdbcType=DOUBLE}, #{betTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{backWater,jdbcType=VARCHAR}, #{backWaterStatus,jdbcType=INTEGER}, 
+      #{backWaterTime,jdbcType=TIMESTAMP}, #{backSysUserName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{betLoginIp,jdbcType=VARCHAR}, #{betUserAgent,jdbcType=VARCHAR}, 
+      #{syncFlag,jdbcType=INTEGER}, #{betSettled,jdbcType=TIMESTAMP}, #{betDevice,jdbcType=VARCHAR}, 
+      #{isWater,jdbcType=INTEGER}, #{betGameType,jdbcType=VARCHAR}, #{settleStatus,jdbcType=INTEGER}, 
+      #{userNodeFlag,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mh.entity.TBetRecordBbin">
+    insert into t_bet_record_bbin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="webFlag != null">
+        web_flag,
+      </if>
+      <if test="webRemark != null">
+        web_remark,
+      </if>
+      <if test="betUserName != null">
+        bet_user_name,
+      </if>
+      <if test="betFlatAccount != null">
+        bet_flat_account,
+      </if>
+      <if test="betGameContent != null">
+        bet_game_content,
+      </if>
+      <if test="betGameResult != null">
+        bet_game_result,
+      </if>
+      <if test="betContent != null">
+        bet_content,
+      </if>
+      <if test="betGameHall != null">
+        bet_game_hall,
+      </if>
+      <if test="betGameRoom != null">
+        bet_game_room,
+      </if>
+      <if test="betGameTable != null">
+        bet_game_table,
+      </if>
+      <if test="betGameCode != null">
+        bet_game_code,
+      </if>
+      <if test="betWagersId != null">
+        bet_Wagers_id,
+      </if>
+      <if test="betIn != null">
+        bet_in,
+      </if>
+      <if test="betIncome != null">
+        bet_income,
+      </if>
+      <if test="betUsrWin != null">
+        bet_usr_win,
+      </if>
+      <if test="betNetWin != null">
+        bet_net_win,
+      </if>
+      <if test="betTime != null">
+        bet_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="backWater != null">
+        back_water,
+      </if>
+      <if test="backWaterStatus != null">
+        back_water_status,
+      </if>
+      <if test="backWaterTime != null">
+        back_water_time,
+      </if>
+      <if test="backSysUserName != null">
+        back_sys_user_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="betLoginIp != null">
+        bet_login_ip,
+      </if>
+      <if test="betUserAgent != null">
+        bet_user_agent,
+      </if>
+      <if test="syncFlag != null">
+        sync_flag,
+      </if>
+      <if test="betSettled != null">
+        bet_settled,
+      </if>
+      <if test="betDevice != null">
+        bet_device,
+      </if>
+      <if test="isWater != null">
+        is_water,
+      </if>
+      <if test="betGameType != null">
+        bet_game_type,
+      </if>
+      <if test="settleStatus != null">
+        settle_status,
+      </if>
+      <if test="userNodeFlag != null">
+        user_node_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="webFlag != null">
+        #{webFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="webRemark != null">
+        #{webRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="betUserName != null">
+        #{betUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="betFlatAccount != null">
+        #{betFlatAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="betGameContent != null">
+        #{betGameContent,jdbcType=VARCHAR},
+      </if>
+      <if test="betGameResult != null">
+        #{betGameResult,jdbcType=VARCHAR},
+      </if>
+      <if test="betContent != null">
+        #{betContent,jdbcType=VARCHAR},
+      </if>
+      <if test="betGameHall != null">
+        #{betGameHall,jdbcType=VARCHAR},
+      </if>
+      <if test="betGameRoom != null">
+        #{betGameRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="betGameTable != null">
+        #{betGameTable,jdbcType=VARCHAR},
+      </if>
+      <if test="betGameCode != null">
+        #{betGameCode,jdbcType=VARCHAR},
+      </if>
+      <if test="betWagersId != null">
+        #{betWagersId,jdbcType=VARCHAR},
+      </if>
+      <if test="betIn != null">
+        #{betIn,jdbcType=DOUBLE},
+      </if>
+      <if test="betIncome != null">
+        #{betIncome,jdbcType=DOUBLE},
+      </if>
+      <if test="betUsrWin != null">
+        #{betUsrWin,jdbcType=DOUBLE},
+      </if>
+      <if test="betNetWin != null">
+        #{betNetWin,jdbcType=DOUBLE},
+      </if>
+      <if test="betTime != null">
+        #{betTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="backWater != null">
+        #{backWater,jdbcType=VARCHAR},
+      </if>
+      <if test="backWaterStatus != null">
+        #{backWaterStatus,jdbcType=INTEGER},
+      </if>
+      <if test="backWaterTime != null">
+        #{backWaterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="backSysUserName != null">
+        #{backSysUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="betLoginIp != null">
+        #{betLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="betUserAgent != null">
+        #{betUserAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="syncFlag != null">
+        #{syncFlag,jdbcType=INTEGER},
+      </if>
+      <if test="betSettled != null">
+        #{betSettled,jdbcType=TIMESTAMP},
+      </if>
+      <if test="betDevice != null">
+        #{betDevice,jdbcType=VARCHAR},
+      </if>
+      <if test="isWater != null">
+        #{isWater,jdbcType=INTEGER},
+      </if>
+      <if test="betGameType != null">
+        #{betGameType,jdbcType=VARCHAR},
+      </if>
+      <if test="settleStatus != null">
+        #{settleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userNodeFlag != null">
+        #{userNodeFlag,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mh.entity.TBetRecordBbinExample" resultType="java.lang.Long">
+    select count(*) from t_bet_record_bbin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_bet_record_bbin
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.webFlag != null">
+        web_flag = #{record.webFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.webRemark != null">
+        web_remark = #{record.webRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.betUserName != null">
+        bet_user_name = #{record.betUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.betFlatAccount != null">
+        bet_flat_account = #{record.betFlatAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.betGameContent != null">
+        bet_game_content = #{record.betGameContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.betGameResult != null">
+        bet_game_result = #{record.betGameResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.betContent != null">
+        bet_content = #{record.betContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.betGameHall != null">
+        bet_game_hall = #{record.betGameHall,jdbcType=VARCHAR},
+      </if>
+      <if test="record.betGameRoom != null">
+        bet_game_room = #{record.betGameRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.betGameTable != null">
+        bet_game_table = #{record.betGameTable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.betGameCode != null">
+        bet_game_code = #{record.betGameCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.betWagersId != null">
+        bet_Wagers_id = #{record.betWagersId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.betIn != null">
+        bet_in = #{record.betIn,jdbcType=DOUBLE},
+      </if>
+      <if test="record.betIncome != null">
+        bet_income = #{record.betIncome,jdbcType=DOUBLE},
+      </if>
+      <if test="record.betUsrWin != null">
+        bet_usr_win = #{record.betUsrWin,jdbcType=DOUBLE},
+      </if>
+      <if test="record.betNetWin != null">
+        bet_net_win = #{record.betNetWin,jdbcType=DOUBLE},
+      </if>
+      <if test="record.betTime != null">
+        bet_time = #{record.betTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.backWater != null">
+        back_water = #{record.backWater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.backWaterStatus != null">
+        back_water_status = #{record.backWaterStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.backWaterTime != null">
+        back_water_time = #{record.backWaterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.backSysUserName != null">
+        back_sys_user_name = #{record.backSysUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null">
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.betLoginIp != null">
+        bet_login_ip = #{record.betLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.betUserAgent != null">
+        bet_user_agent = #{record.betUserAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syncFlag != null">
+        sync_flag = #{record.syncFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.betSettled != null">
+        bet_settled = #{record.betSettled,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.betDevice != null">
+        bet_device = #{record.betDevice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isWater != null">
+        is_water = #{record.isWater,jdbcType=INTEGER},
+      </if>
+      <if test="record.betGameType != null">
+        bet_game_type = #{record.betGameType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleStatus != null">
+        settle_status = #{record.settleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.userNodeFlag != null">
+        user_node_flag = #{record.userNodeFlag,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update t_bet_record_bbin
+    set id = #{record.id,jdbcType=INTEGER},
+      web_flag = #{record.webFlag,jdbcType=VARCHAR},
+      web_remark = #{record.webRemark,jdbcType=VARCHAR},
+      bet_user_name = #{record.betUserName,jdbcType=VARCHAR},
+      bet_flat_account = #{record.betFlatAccount,jdbcType=VARCHAR},
+      bet_game_content = #{record.betGameContent,jdbcType=VARCHAR},
+      bet_game_result = #{record.betGameResult,jdbcType=VARCHAR},
+      bet_content = #{record.betContent,jdbcType=VARCHAR},
+      bet_game_hall = #{record.betGameHall,jdbcType=VARCHAR},
+      bet_game_room = #{record.betGameRoom,jdbcType=VARCHAR},
+      bet_game_table = #{record.betGameTable,jdbcType=VARCHAR},
+      bet_game_code = #{record.betGameCode,jdbcType=VARCHAR},
+      bet_Wagers_id = #{record.betWagersId,jdbcType=VARCHAR},
+      bet_in = #{record.betIn,jdbcType=DOUBLE},
+      bet_income = #{record.betIncome,jdbcType=DOUBLE},
+      bet_usr_win = #{record.betUsrWin,jdbcType=DOUBLE},
+      bet_net_win = #{record.betNetWin,jdbcType=DOUBLE},
+      bet_time = #{record.betTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      back_water = #{record.backWater,jdbcType=VARCHAR},
+      back_water_status = #{record.backWaterStatus,jdbcType=INTEGER},
+      back_water_time = #{record.backWaterTime,jdbcType=TIMESTAMP},
+      back_sys_user_name = #{record.backSysUserName,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      bet_login_ip = #{record.betLoginIp,jdbcType=VARCHAR},
+      bet_user_agent = #{record.betUserAgent,jdbcType=VARCHAR},
+      sync_flag = #{record.syncFlag,jdbcType=INTEGER},
+      bet_settled = #{record.betSettled,jdbcType=TIMESTAMP},
+      bet_device = #{record.betDevice,jdbcType=VARCHAR},
+      is_water = #{record.isWater,jdbcType=INTEGER},
+      bet_game_type = #{record.betGameType,jdbcType=VARCHAR},
+      settle_status = #{record.settleStatus,jdbcType=INTEGER},
+      user_node_flag = #{record.userNodeFlag,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_bet_record_bbin
+    set id = #{record.id,jdbcType=INTEGER},
+      web_flag = #{record.webFlag,jdbcType=VARCHAR},
+      web_remark = #{record.webRemark,jdbcType=VARCHAR},
+      bet_user_name = #{record.betUserName,jdbcType=VARCHAR},
+      bet_flat_account = #{record.betFlatAccount,jdbcType=VARCHAR},
+      bet_game_content = #{record.betGameContent,jdbcType=VARCHAR},
+      bet_game_result = #{record.betGameResult,jdbcType=VARCHAR},
+      bet_content = #{record.betContent,jdbcType=VARCHAR},
+      bet_game_hall = #{record.betGameHall,jdbcType=VARCHAR},
+      bet_game_room = #{record.betGameRoom,jdbcType=VARCHAR},
+      bet_game_table = #{record.betGameTable,jdbcType=VARCHAR},
+      bet_game_code = #{record.betGameCode,jdbcType=VARCHAR},
+      bet_Wagers_id = #{record.betWagersId,jdbcType=VARCHAR},
+      bet_in = #{record.betIn,jdbcType=DOUBLE},
+      bet_income = #{record.betIncome,jdbcType=DOUBLE},
+      bet_usr_win = #{record.betUsrWin,jdbcType=DOUBLE},
+      bet_net_win = #{record.betNetWin,jdbcType=DOUBLE},
+      bet_time = #{record.betTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      back_water = #{record.backWater,jdbcType=VARCHAR},
+      back_water_status = #{record.backWaterStatus,jdbcType=INTEGER},
+      back_water_time = #{record.backWaterTime,jdbcType=TIMESTAMP},
+      back_sys_user_name = #{record.backSysUserName,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      bet_login_ip = #{record.betLoginIp,jdbcType=VARCHAR},
+      bet_user_agent = #{record.betUserAgent,jdbcType=VARCHAR},
+      sync_flag = #{record.syncFlag,jdbcType=INTEGER},
+      bet_settled = #{record.betSettled,jdbcType=TIMESTAMP},
+      bet_device = #{record.betDevice,jdbcType=VARCHAR},
+      is_water = #{record.isWater,jdbcType=INTEGER},
+      bet_game_type = #{record.betGameType,jdbcType=VARCHAR},
+      settle_status = #{record.settleStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mh.entity.TBetRecordBbin">
+    update t_bet_record_bbin
+    <set>
+      <if test="webFlag != null">
+        web_flag = #{webFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="webRemark != null">
+        web_remark = #{webRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="betUserName != null">
+        bet_user_name = #{betUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="betFlatAccount != null">
+        bet_flat_account = #{betFlatAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="betGameContent != null">
+        bet_game_content = #{betGameContent,jdbcType=VARCHAR},
+      </if>
+      <if test="betGameResult != null">
+        bet_game_result = #{betGameResult,jdbcType=VARCHAR},
+      </if>
+      <if test="betContent != null">
+        bet_content = #{betContent,jdbcType=VARCHAR},
+      </if>
+      <if test="betGameHall != null">
+        bet_game_hall = #{betGameHall,jdbcType=VARCHAR},
+      </if>
+      <if test="betGameRoom != null">
+        bet_game_room = #{betGameRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="betGameTable != null">
+        bet_game_table = #{betGameTable,jdbcType=VARCHAR},
+      </if>
+      <if test="betGameCode != null">
+        bet_game_code = #{betGameCode,jdbcType=VARCHAR},
+      </if>
+      <if test="betWagersId != null">
+        bet_Wagers_id = #{betWagersId,jdbcType=VARCHAR},
+      </if>
+      <if test="betIn != null">
+        bet_in = #{betIn,jdbcType=DOUBLE},
+      </if>
+      <if test="betIncome != null">
+        bet_income = #{betIncome,jdbcType=DOUBLE},
+      </if>
+      <if test="betUsrWin != null">
+        bet_usr_win = #{betUsrWin,jdbcType=DOUBLE},
+      </if>
+      <if test="betNetWin != null">
+        bet_net_win = #{betNetWin,jdbcType=DOUBLE},
+      </if>
+      <if test="betTime != null">
+        bet_time = #{betTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="backWater != null">
+        back_water = #{backWater,jdbcType=VARCHAR},
+      </if>
+      <if test="backWaterStatus != null">
+        back_water_status = #{backWaterStatus,jdbcType=INTEGER},
+      </if>
+      <if test="backWaterTime != null">
+        back_water_time = #{backWaterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="backSysUserName != null">
+        back_sys_user_name = #{backSysUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="betLoginIp != null">
+        bet_login_ip = #{betLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="betUserAgent != null">
+        bet_user_agent = #{betUserAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="syncFlag != null">
+        sync_flag = #{syncFlag,jdbcType=INTEGER},
+      </if>
+      <if test="betSettled != null">
+        bet_settled = #{betSettled,jdbcType=TIMESTAMP},
+      </if>
+      <if test="betDevice != null">
+        bet_device = #{betDevice,jdbcType=VARCHAR},
+      </if>
+      <if test="isWater != null">
+        is_water = #{isWater,jdbcType=INTEGER},
+      </if>
+      <if test="betGameType != null">
+        bet_game_type = #{betGameType,jdbcType=VARCHAR},
+      </if>
+      <if test="settleStatus != null">
+        settle_status = #{settleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userNodeFlag != null">
+        user_node_flag = #{userNodeFlag,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mh.entity.TBetRecordBbin">
+    update t_bet_record_bbin
+    set web_flag = #{webFlag,jdbcType=VARCHAR},
+      web_remark = #{webRemark,jdbcType=VARCHAR},
+      bet_user_name = #{betUserName,jdbcType=VARCHAR},
+      bet_flat_account = #{betFlatAccount,jdbcType=VARCHAR},
+      bet_game_content = #{betGameContent,jdbcType=VARCHAR},
+      bet_game_result = #{betGameResult,jdbcType=VARCHAR},
+      bet_content = #{betContent,jdbcType=VARCHAR},
+      bet_game_hall = #{betGameHall,jdbcType=VARCHAR},
+      bet_game_room = #{betGameRoom,jdbcType=VARCHAR},
+      bet_game_table = #{betGameTable,jdbcType=VARCHAR},
+      bet_game_code = #{betGameCode,jdbcType=VARCHAR},
+      bet_Wagers_id = #{betWagersId,jdbcType=VARCHAR},
+      bet_in = #{betIn,jdbcType=DOUBLE},
+      bet_income = #{betIncome,jdbcType=DOUBLE},
+      bet_usr_win = #{betUsrWin,jdbcType=DOUBLE},
+      bet_net_win = #{betNetWin,jdbcType=DOUBLE},
+      bet_time = #{betTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      back_water = #{backWater,jdbcType=VARCHAR},
+      back_water_status = #{backWaterStatus,jdbcType=INTEGER},
+      back_water_time = #{backWaterTime,jdbcType=TIMESTAMP},
+      back_sys_user_name = #{backSysUserName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      bet_login_ip = #{betLoginIp,jdbcType=VARCHAR},
+      bet_user_agent = #{betUserAgent,jdbcType=VARCHAR},
+      sync_flag = #{syncFlag,jdbcType=INTEGER},
+      bet_settled = #{betSettled,jdbcType=TIMESTAMP},
+      bet_device = #{betDevice,jdbcType=VARCHAR},
+      is_water = #{isWater,jdbcType=INTEGER},
+      bet_game_type = #{betGameType,jdbcType=VARCHAR},
+      settle_status = #{settleStatus,jdbcType=INTEGER},
+      user_node_flag = #{userNodeFlag,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mh.entity.TBetRecordBbin">
+    update t_bet_record_bbin
+    set web_flag = #{webFlag,jdbcType=VARCHAR},
+      web_remark = #{webRemark,jdbcType=VARCHAR},
+      bet_user_name = #{betUserName,jdbcType=VARCHAR},
+      bet_flat_account = #{betFlatAccount,jdbcType=VARCHAR},
+      bet_game_content = #{betGameContent,jdbcType=VARCHAR},
+      bet_game_result = #{betGameResult,jdbcType=VARCHAR},
+      bet_content = #{betContent,jdbcType=VARCHAR},
+      bet_game_hall = #{betGameHall,jdbcType=VARCHAR},
+      bet_game_room = #{betGameRoom,jdbcType=VARCHAR},
+      bet_game_table = #{betGameTable,jdbcType=VARCHAR},
+      bet_game_code = #{betGameCode,jdbcType=VARCHAR},
+      bet_Wagers_id = #{betWagersId,jdbcType=VARCHAR},
+      bet_in = #{betIn,jdbcType=DOUBLE},
+      bet_income = #{betIncome,jdbcType=DOUBLE},
+      bet_usr_win = #{betUsrWin,jdbcType=DOUBLE},
+      bet_net_win = #{betNetWin,jdbcType=DOUBLE},
+      bet_time = #{betTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      back_water = #{backWater,jdbcType=VARCHAR},
+      back_water_status = #{backWaterStatus,jdbcType=INTEGER},
+      back_water_time = #{backWaterTime,jdbcType=TIMESTAMP},
+      back_sys_user_name = #{backSysUserName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      bet_login_ip = #{betLoginIp,jdbcType=VARCHAR},
+      bet_user_agent = #{betUserAgent,jdbcType=VARCHAR},
+      sync_flag = #{syncFlag,jdbcType=INTEGER},
+      bet_settled = #{betSettled,jdbcType=TIMESTAMP},
+      bet_device = #{betDevice,jdbcType=VARCHAR},
+      is_water = #{isWater,jdbcType=INTEGER},
+      bet_game_type = #{betGameType,jdbcType=VARCHAR},
+      settle_status = #{settleStatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
